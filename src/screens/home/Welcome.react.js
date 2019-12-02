@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 8,
     textAlign: 'center',
-    width: 250,
   },
   welcomeTitle: {
     color: '#BBBBBB',

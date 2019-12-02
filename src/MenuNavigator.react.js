@@ -126,9 +126,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     flex: 1,
   },
-  root: {
-    flexDirection: 'row',
-  },
+  root: {},
 });
 
 type NavigationContextType = {
