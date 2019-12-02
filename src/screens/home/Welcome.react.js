@@ -6,11 +6,11 @@
 import * as React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import ScreenWithMenu from 'ScreenWithMenu.react';
+import ScreenWithMenuToggle from 'ScreenWithMenuToggle.react';
 
-function WelcomeScreen(): React.Element<typeof ScreenWithMenu> {
+function WelcomeScreen(): React.Element<typeof ScreenWithMenuToggle> {
   return (
-    <ScreenWithMenu
+    <ScreenWithMenuToggle
       toolbarContent={<Text style={styles.title}>Timeslice</Text>}>
       <View style={styles.root}>
         <Text style={styles.welcomeTitle}>Welcome to Timeslice</Text>
@@ -21,7 +21,7 @@ function WelcomeScreen(): React.Element<typeof ScreenWithMenu> {
           <Text style={styles.bold}>Edit Activities</Text>).
         </Text>
       </View>
-    </ScreenWithMenu>
+    </ScreenWithMenuToggle>
   );
 }
 

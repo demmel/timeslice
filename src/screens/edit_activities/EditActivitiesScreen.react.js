@@ -7,7 +7,7 @@ import * as React from 'react';
 import {StyleSheet, Text, TouchableNativeFeedback, View} from 'react-native';
 import EditActivityTypeModal from './EditActivityTypeModal.react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import ScreenWithMenu from 'ScreenWithMenu.react';
+import ScreenWithMenuToggle from 'ScreenWithMenuToggle.react';
 import {useAppContext} from 'App.react';
 
 const {useState} = React;
@@ -39,7 +39,7 @@ function EditActivitiesScreen(): React.Element<typeof React.Fragment> {
           setIsEditActivityTypeModalVisible(false);
         }}
       />
-      <ScreenWithMenu
+      <ScreenWithMenuToggle
         toolbarContent={<Text style={styles.title}>Edit Activities</Text>}>
         <View style={styles.root}>
           {[...activityTypes.values()].map(activityType => (
@@ -66,7 +66,7 @@ function EditActivitiesScreen(): React.Element<typeof React.Fragment> {
             </View>
           </TouchableNativeFeedback>
         </View>
-      </ScreenWithMenu>
+      </ScreenWithMenuToggle>
     </>
   );
 }

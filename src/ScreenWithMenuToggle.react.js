@@ -6,9 +6,7 @@
 import * as React from 'react';
 import {StyleSheet, TouchableNativeFeedback, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Menu from 'Menu.react';
-
-const {useState} = React;
+import {useNavigationContext} from 'MenuNavigator.react';
 
 type Props = {
   children: React.Node,
@@ -19,20 +17,13 @@ function ScreenWithMenu({
   children,
   toolbarContent,
 }: Props): React.Element<typeof View> {
-  const [showMenu, setShowMenu] = useState(false);
+  const {toggleMenu} = useNavigationContext();
   return (
     <View style={styles.root}>
-      {showMenu && (
-        <View style={styles.menu}>
-          <Menu />
-        </View>
-      )}
       <View style={styles.screen}>
         <View style={styles.toolbar}>
           <TouchableNativeFeedback
-            onPress={() => {
-              setShowMenu(!showMenu);
-            }}
+            onPress={toggleMenu}
             background={TouchableNativeFeedback.Ripple('white')}>
             <View style={styles.menuButton}>
               <Icon name="menu" size={48} color="white" />
@@ -51,9 +42,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#303030',
     height: '100%',
     width: '100%',
-  },
-  menu: {
-    height: '100%',
   },
   menuButton: {
     alignItems: 'center',

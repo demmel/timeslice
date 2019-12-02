@@ -6,20 +6,10 @@
 import * as React from 'react';
 import EditActivitiesScreen from 'screens/edit_activities/EditActivitiesScreen.react';
 import HomeScreen from 'screens/home/HomeScreen.react';
+import MenuNavigator from 'MenuNavigator.react';
 import {SafeAreaView} from 'react-native';
-import useRoute from 'useRoute';
 
 const {useReducer, useContext, createContext} = React;
-
-const routes = Object.freeze({
-  home: {
-    screen: HomeScreen,
-  },
-  edit_activities: {
-    screen: EditActivitiesScreen,
-  },
-});
-export type RouteName = $Keys<typeof routes>;
 
 export type ActivityType = {
   id: number,
@@ -67,47 +57,31 @@ function App(): React.Element<typeof SafeAreaView> {
     activityContexts: new Map<number, ActivityContext>(),
     activities: new Map<number, Activity>(),
   });
-
-  const {route, navigate} = useRoute<RouteName>(routes, 'home');
-
   return (
     <SafeAreaView>
-      <NavigationContext.Provider
+      <Context.Provider
         value={{
-          route,
-          navigate,
+          state,
+          dispatch,
         }}>
-        <Context.Provider
-          value={{
-            state,
-            dispatch,
-          }}>
-          <route.screen />
-        </Context.Provider>
-      </NavigationContext.Provider>
+        <MenuNavigator initialRoute="edit_activities">
+          <MenuNavigator.Route name="home" screen={HomeScreen} title="Home" />
+          <MenuNavigator.Route
+            name="edit_activities"
+            screen={EditActivitiesScreen}
+            title="Edit Activities"
+          />
+        </MenuNavigator>
+      </Context.Provider>
     </SafeAreaView>
   );
 }
 
-const NavigationContext = createContext(null);
 const Context = createContext(null);
-
-export function useNavigationContext() {
-  const navContext = useContext(NavigationContext);
-  if (navContext == null) {
-    throw new Error(
-      'Cannot use App NavigationContext outside of application rendering tree',
-    );
-  }
-  return navContext;
-}
-
 export function useAppContext() {
   const appContext = useContext(Context);
   if (appContext == null) {
-    throw new Error(
-      'Cannot use App Context outside of application rendering tree',
-    );
+    throw new Error('Cannot use App Context outside of App rendering tree');
   }
   return appContext;
 }

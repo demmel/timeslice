@@ -5,10 +5,9 @@
 
 import * as React from 'react';
 import {StyleSheet, Text, TouchableNativeFeedback, View} from 'react-native';
-import type {RouteName} from 'App.react';
-import {useNavigationContext} from 'App.react';
+import {useNavigationContext} from 'MenuNavigator.react';
 
-type ItemProps = {title: string, route: RouteName};
+type ItemProps = {title: string, route: string};
 
 function Item({title, route: routeName}: ItemProps) {
   const {route, navigate} = useNavigationContext();
@@ -29,13 +28,12 @@ function Item({title, route: routeName}: ItemProps) {
   );
 }
 
-function Menu(): React.Element<typeof View> {
-  return (
-    <View style={styles.root}>
-      <Item title="Home" route="home" />
-      <Item title="Edit Activities" route="edit_activities" />
-    </View>
-  );
+type Props = {
+  children: React.ChildrenArray<React.Element<typeof Item>>,
+};
+
+function Menu({children}: Props): React.Element<typeof View> {
+  return <View style={styles.root}>{children}</View>;
 }
 
 const styles = StyleSheet.create({
@@ -60,7 +58,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#191919',
     height: '100%',
     minWidth: 250,
+    width: '100%',
   },
 });
+
+Menu.Item = Item;
 
 export default Menu;

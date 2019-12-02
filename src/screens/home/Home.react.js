@@ -5,15 +5,15 @@
 
 import * as React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import ScreenWithMenu from 'ScreenWithMenu.react';
+import ScreenWithMenuToggle from 'ScreenWithMenuToggle.react';
 
 function Home(): React.Element<typeof React.Fragment> {
   return (
     <>
-      <ScreenWithMenu
+      <ScreenWithMenuToggle
         toolbarContent={<Text style={styles.title}>Tineslice</Text>}>
         <View />
-      </ScreenWithMenu>
+      </ScreenWithMenuToggle>
     </>
   );
 }
