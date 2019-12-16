@@ -45,6 +45,7 @@ function MenuNavigator({
 
   const menuTargetProgress = showMenu ? 1.0 : 0.0;
   const [menuProgress] = useState(new Animated.Value(menuTargetProgress));
+  const [menuWidth, setMenuWidth] = useState(250);
 
   useEffect(() => {
     Animated.timing(menuProgress, {
@@ -74,22 +75,31 @@ function MenuNavigator({
               styles.menu,
               {
                 marginStart: Animated.multiply(
-                  -250,
+                  -menuWidth,
                   Animated.subtract(1, menuProgress),
                 ),
               },
             ]}>
-            <Menu>
-              {React.Children.map(children, item =>
-                item.props.title != null ? (
-                  <Menu.Item
-                    route={item.props.name}
-                    title={item.props.title}
-                    selected={route.name === item.props.name}
-                  />
-                ) : null,
-              )}
-            </Menu>
+            <View
+              onLayout={({
+                nativeEvent: {
+                  layout: {width},
+                },
+              }) => {
+                setMenuWidth(width);
+              }}>
+              <Menu>
+                {React.Children.map(children, item =>
+                  item.props.title != null ? (
+                    <Menu.Item
+                      route={item.props.name}
+                      title={item.props.title}
+                      selected={route.name === item.props.name}
+                    />
+                  ) : null,
+                )}
+              </Menu>
+            </View>
           </Animated.View>
           <TouchableNativeFeedback
             onPress={() => setShowMenu(false)}
@@ -112,7 +122,6 @@ const styles = StyleSheet.create({
   menu: {
     height: '100%',
     overflow: 'hidden',
-    width: 250,
   },
   menuLayer: {
     bottom: 0,

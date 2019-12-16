@@ -64,7 +64,7 @@ function App(): React.Element<typeof SafeAreaView> {
           state,
           dispatch,
         }}>
-        <MenuNavigator initialRoute="edit_activities">
+        <MenuNavigator initialRoute="home">
           <MenuNavigator.Route name="home" screen={HomeScreen} title="Home" />
           <MenuNavigator.Route
             name="edit_activities"

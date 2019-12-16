@@ -4,9 +4,9 @@
  */
 
 import * as React from 'react';
-import {StyleSheet, Text, TouchableNativeFeedback, View} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
+import ActivityGrid from 'components/ActivityGrid.react';
 import EditActivityTypeModal from './EditActivityTypeModal.react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import ScreenWithMenuToggle from 'ScreenWithMenuToggle.react';
 import {useAppContext} from 'App.react';
 
@@ -41,31 +41,26 @@ function EditActivitiesScreen(): React.Element<typeof React.Fragment> {
       />
       <ScreenWithMenuToggle
         toolbarContent={<Text style={styles.title}>Edit Activities</Text>}>
-        <View style={styles.root}>
+        <ActivityGrid>
           {[...activityTypes.values()].map(activityType => (
-            <TouchableNativeFeedback
-              background={TouchableNativeFeedback.Ripple('white')}
+            <ActivityGrid.Item
               onPress={() => {
                 setActivityBeingEditted(activityType);
                 setIsEditActivityTypeModalVisible(true);
-              }}>
-              <View key={activityType.id} style={styles.item}>
-                <Text style={styles.itemText}>{activityType.name}</Text>
-              </View>
-            </TouchableNativeFeedback>
+              }}
+              key={activityType.id}
+              text={activityType.name}
+            />
           ))}
-          <TouchableNativeFeedback
-            background={TouchableNativeFeedback.Ripple('white')}
+          <ActivityGrid.Item
             onPress={() => {
               setActivityBeingEditted(undefined);
               setIsEditActivityTypeModalVisible(true);
-            }}>
-            <View style={styles.item}>
-              <Icon name="add-circle" color="white" size={48} />
-              <Text style={styles.itemText}>Add</Text>
-            </View>
-          </TouchableNativeFeedback>
-        </View>
+            }}
+            icon="add-circle"
+            text="Add"
+          />
+        </ActivityGrid>
       </ScreenWithMenuToggle>
     </>
   );
