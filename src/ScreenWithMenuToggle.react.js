@@ -4,8 +4,7 @@
  */
 
 import * as React from 'react';
-import {StyleSheet, TouchableNativeFeedback, View} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import ScreenWithToolbar from 'ScreenWithToolbar.react';
 import {useNavigationContext} from 'MenuNavigator.react';
 
 type Props = {
@@ -13,62 +12,18 @@ type Props = {
   toolbarContent: React.Node,
 };
 
-function ScreenWithMenu({
+function ScreenWithMenuToggle({
   children,
   toolbarContent,
-}: Props): React.Element<typeof View> {
+}: Props): React.Element<typeof ScreenWithToolbar> {
   const {toggleMenu} = useNavigationContext();
   return (
-    <View style={styles.root}>
-      <View style={styles.screen}>
-        <View style={styles.toolbar}>
-          <TouchableNativeFeedback
-            onPress={toggleMenu}
-            background={TouchableNativeFeedback.Ripple('white')}>
-            <View style={styles.menuButton}>
-              <Icon name="menu" size={48} color="white" />
-            </View>
-          </TouchableNativeFeedback>
-          <View style={styles.toolbarContent}>{toolbarContent}</View>
-        </View>
-        <View style={styles.content}>{children}</View>
-      </View>
-    </View>
+    <ScreenWithToolbar
+      toolbarContent={toolbarContent}
+      toolbarButton={{icon: 'menu', onPress: toggleMenu}}>
+      {children}
+    </ScreenWithToolbar>
   );
 }
 
-const styles = StyleSheet.create({
-  content: {
-    backgroundColor: '#303030',
-    height: '100%',
-    width: '100%',
-  },
-  menuButton: {
-    alignItems: 'center',
-    height: 64,
-    justifyContent: 'center',
-    width: 64,
-  },
-  root: {
-    flexDirection: 'row',
-    height: '100%',
-    width: '100%',
-  },
-  screen: {
-    height: '100%',
-    width: '100%',
-  },
-  toolbar: {
-    backgroundColor: '#212121',
-    flexDirection: 'row',
-    height: 64,
-  },
-  toolbarContent: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    paddingBottom: 8,
-    paddingTop: 8,
-  },
-});
-
-export default ScreenWithMenu;
+export default ScreenWithMenuToggle;
