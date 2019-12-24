@@ -5,6 +5,7 @@
 
 import * as React from 'react';
 import {Button, Modal, StyleSheet, Text, TextInput, View} from 'react-native';
+import appStyles from 'styles';
 import type {ActivityType} from 'App.react';
 
 const {useState, useEffect, useMemo} = React;
@@ -43,8 +44,8 @@ function EditActivityTypeModal({
       transparent={true}
       visible={isVisible}
       onRequestClose={onCancel}>
-      <View style={styles.root}>
-        <View style={styles.modal}>
+      <View style={[appStyles.fillParent, appStyles.centerContent]}>
+        <View style={appStyles.dialog}>
           <Text style={styles.title}>Add New Activity</Text>
           <TextInput
             autoFocus
@@ -82,18 +83,6 @@ const styles = StyleSheet.create({
   },
   follow: {
     marginTop: 8,
-  },
-  modal: {
-    backgroundColor: '#424242',
-    elevation: 5,
-    padding: 8,
-    width: '80%',
-  },
-  root: {
-    alignItems: 'center',
-    height: '100%',
-    justifyContent: 'center',
-    width: '100%',
   },
   text: {
     backgroundColor: '#212121',

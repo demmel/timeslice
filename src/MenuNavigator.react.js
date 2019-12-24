@@ -49,8 +49,8 @@ function MenuNavigator({
 
   useEffect(() => {
     Animated.timing(menuProgress, {
-      toValue: menuTargetProgress,
       duration: 200,
+      toValue: menuTargetProgress,
       useNativeDriver: false,
     }).start();
   }, [menuProgress, menuTargetProgress]);
@@ -58,11 +58,11 @@ function MenuNavigator({
   return (
     <NavigationContext.Provider
       value={{
-        route,
         navigate(name) {
           setRoute(name);
           setShowMenu(false);
         },
+        route,
         toggleMenu() {
           setShowMenu(show => !show);
         },

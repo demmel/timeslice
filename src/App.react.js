@@ -4,10 +4,10 @@
  */
 
 import * as React from 'react';
+import {SafeAreaView} from 'react-native';
 import EditActivitiesScreen from 'screens/edit_activities/EditActivitiesScreen.react';
 import HomeScreen from 'screens/home/HomeScreen.react';
 import MenuNavigator from 'MenuNavigator.react';
-import {SafeAreaView} from 'react-native';
 
 const {useReducer, useContext, createContext} = React;
 
@@ -53,16 +53,33 @@ function appReducer(state: State, action: Action) {
 
 function App(): React.Element<typeof SafeAreaView> {
   const [state, dispatch] = useReducer<State, Action>(appReducer, {
-    activityTypes: new Map<number, ActivityType>(),
-    activityContexts: new Map<number, ActivityContext>(),
     activities: new Map<number, Activity>(),
+    // new Map<number, ActivityType>(),
+    activityContexts: new Map<number, ActivityContext>(),
+    activityTypes: new Map([
+      [1, {id: 1, name: 'test'}],
+      [2, {id: 2, name: 'testa'}],
+      [3, {id: 3, name: 'testafd'}],
+      [4, {id: 4, name: 'testafdfds'}],
+      [5, {id: 5, name: 'testafdfdsfds'}],
+      [6, {id: 6, name: 'testafdfdsfdshgfsd'}],
+      [7, {id: 7, name: 'testafdfdsfdshgfsdervds'}],
+      [8, {id: 8, name: 'testafdfdsfdshgfsdervdsefdafdsfd'}],
+      [9, {id: 9, name: 'testafdfdsfdshgfsde'}],
+      [10, {id: 10, name: 'test'}],
+      [11, {id: 11, name: 'test'}],
+      [12, {id: 12, name: 'testfddddsfdsfdsfds'}],
+      [13, {id: 13, name: 'testfddddsfdsfdsfds'}],
+      [14, {id: 14, name: 'testfddddsfdsfdsfds'}],
+    ]),
   });
+  console.log(state.activityTypes);
   return (
     <SafeAreaView>
       <Context.Provider
         value={{
-          state,
           dispatch,
+          state,
         }}>
         <MenuNavigator initialRoute="home">
           <MenuNavigator.Route name="home" screen={HomeScreen} title="Home" />

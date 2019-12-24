@@ -4,8 +4,8 @@
  */
 
 import * as React from 'react';
-import ScreenWithToolbar from 'ScreenWithToolbar.react';
 import {useNavigationContext} from 'MenuNavigator.react';
+import ScreenWithToolbar from 'ScreenWithToolbar.react';
 
 type Props = {
   children: React.Node,

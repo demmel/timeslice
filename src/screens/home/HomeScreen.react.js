@@ -4,9 +4,9 @@
  */
 
 import * as React from 'react';
+import {useAppContext} from 'App.react';
 import Home from './Home.react';
 import Welcome from './Welcome.react';
-import {useAppContext} from 'App.react';
 
 function HomeScreen(): React.Element<typeof React.Fragment> {
   const {state} = useAppContext();
