@@ -27,7 +27,6 @@ function App(): React.Element<typeof SafeAreaView> {
           activityTypes: new Map<number, ActivityType>(),
         },
   );
-  console.log(state.activityTypes);
   return (
     <SafeAreaView>
       <Context.Provider
