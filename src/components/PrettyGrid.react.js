@@ -18,7 +18,7 @@ function usePrettyGridMeasure() {
   const [rootWidth, setRootWidth] = useState(0);
 
   return {
-    MeasureComponent: ({children, spacing}: Props) => (
+    MeasureComponent: ({children}) => (
       <View
         onLayout={({
           nativeEvent: {
@@ -53,7 +53,7 @@ function PrettyGrid({children, spacing}: Props): React.MixedElement {
   const {preferredSizes, rootWidth, MeasureComponent} = usePrettyGridMeasure();
 
   if (preferredSizes.size !== React.Children.count(children)) {
-    return <MeasureComponent spacing={spacing}>{children}</MeasureComponent>;
+    return <MeasureComponent>{children}</MeasureComponent>;
   }
 
   const childSets = [];

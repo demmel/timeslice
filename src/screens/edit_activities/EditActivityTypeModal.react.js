@@ -26,6 +26,7 @@ function EditActivityTypeModal({
   onSubmit,
   activity,
 }: Props) {
+  const isEdit = activity != null;
   const initialState = useMemo(
     () =>
       activity ?? {
@@ -46,7 +47,9 @@ function EditActivityTypeModal({
       onRequestClose={onCancel}>
       <View style={[appStyles.fillParent, appStyles.centerContent]}>
         <View style={appStyles.dialog}>
-          <Text style={styles.title}>Add New Activity</Text>
+          <Text style={styles.title}>
+            {isEdit ? 'Edit Activity' : 'Add New Activity'}
+          </Text>
           <TextInput
             autoFocus
             style={[styles.text, styles.follow]}
@@ -62,7 +65,7 @@ function EditActivityTypeModal({
                 onPress={() => {
                   onSubmit({id: activity?.id, name});
                 }}
-                title="Add"
+                title={isEdit ? 'Save' : 'Add'}
               />
             </View>
           </View>

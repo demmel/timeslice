@@ -45,8 +45,9 @@ function ScreenWithToolbar({
 
 const styles = StyleSheet.create({
   content: {
-    ...appStyles.fillParent,
     backgroundColor: theme.backgroundColorContent,
+    flex: 1,
+    width: '100%',
   },
   menuButton: {
     ...appStyles.centerContent,
