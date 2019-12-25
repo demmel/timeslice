@@ -6,7 +6,7 @@
 import * as React from 'react';
 import {Button, Modal, StyleSheet, Text, TextInput, View} from 'react-native';
 import appStyles from 'styles';
-import type {ActivityType} from 'App.react';
+import type {ActivityType} from 'types';
 
 const {useState, useEffect, useMemo} = React;
 
