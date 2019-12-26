@@ -8,30 +8,17 @@ import {SafeAreaView} from 'react-native';
 import EditActivitiesScreen from 'screens/edit_activities/EditActivitiesScreen.react';
 import HomeScreen from 'screens/home/HomeScreen.react';
 import MenuNavigator from 'MenuNavigator.react';
-import config from 'config';
-import reducer from 'reducer';
-import testData from 'test_data/root';
-import type {Action, State} from 'reducer';
-import type {Activity, ActivityContext, ActivityType} from 'types';
+import useAppAPI from 'useAppAPI';
 
-const {useReducer, useContext, createContext} = React;
+const {useContext, createContext} = React;
 
 function App(): React.Element<typeof SafeAreaView> {
-  const [state, dispatch] = useReducer<State, Action>(
-    reducer,
-    config.isDev
-      ? testData
-      : {
-          activities: new Map<number, Activity>(),
-          activityContexts: new Map<number, ActivityContext>(),
-          activityTypes: new Map<number, ActivityType>(),
-        },
-  );
+  const {state, api} = useAppAPI();
   return (
     <SafeAreaView>
       <Context.Provider
         value={{
-          dispatch,
+          api,
           state,
         }}>
         <MenuNavigator initialRoute="home">

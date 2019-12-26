@@ -16,7 +16,7 @@ const {useState} = React;
 function EditActivitiesScreen(): React.Element<typeof React.Fragment> {
   const {
     state: {activityTypes},
-    dispatch,
+    api: {addActivityType, editActivityType},
   } = useAppContext();
   const [activityBeingEditted, setActivityBeingEditted] = useState(undefined);
   const [
@@ -31,12 +31,12 @@ function EditActivitiesScreen(): React.Element<typeof React.Fragment> {
         isVisible={isEditActivityTypeModalVisible}
         onCancel={() => setIsEditActivityTypeModalVisible(false)}
         onSubmit={activityType => {
-          const id =
-            activityType.id ?? Math.max(0, ...activityTypes.keys()) + 1;
-          dispatch({
-            activityType: {...activityType, id},
-            type: 'edit_activity_type',
-          });
+          if (activityType.id) {
+            const id = activityType.id;
+            editActivityType({...activityType, id});
+          } else {
+            addActivityType(activityType);
+          }
           setIsEditActivityTypeModalVisible(false);
         }}
       />
