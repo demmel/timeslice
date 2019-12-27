@@ -16,7 +16,7 @@ const {useState} = React;
 function EditActivitiesScreen(): React.Element<typeof React.Fragment> {
   const {
     state: {activityTypes},
-    api: {addActivityType, editActivityType},
+    api: {addActivityType, editActivityType, removeActivityType},
   } = useAppContext();
   const [activityBeingEditted, setActivityBeingEditted] = useState(undefined);
   const [
@@ -37,6 +37,10 @@ function EditActivitiesScreen(): React.Element<typeof React.Fragment> {
           } else {
             addActivityType(activityType);
           }
+          setIsEditActivityTypeModalVisible(false);
+        }}
+        onRemove={id => {
+          removeActivityType(id);
           setIsEditActivityTypeModalVisible(false);
         }}
       />

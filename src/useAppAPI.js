@@ -43,9 +43,25 @@ export default function useAppAPI(initialState: State) {
     });
   }
 
+  async function removeActivityType(id: number) {
+    await localStorage.setMap(
+      'activityTypes',
+      new Map([
+        ...[...state.activityTypes.entries()].filter(
+          ([savedID, _]) => id !== savedID,
+        ),
+      ]),
+    );
+    dispatch({
+      id,
+      type: 'remove_activity_type',
+    });
+  }
+
   return {
     api: {
       addActivityType,
+      removeActivityType,
       editActivityType,
     },
     state,
