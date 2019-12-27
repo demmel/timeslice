@@ -14,37 +14,33 @@ const {useReducer} = React;
 export default function useAppAPI(initialState: State) {
   const [state, dispatch] = useReducer<State, Action>(reducer, initialState);
 
-  function addActivityType(activityType: $Diff<ActivityType, {id: number}>) {
+  async function addActivityType(
+    activityType: $Diff<ActivityType, {id: number}>,
+  ) {
     const id = Math.max(0, ...state.activityTypes.keys()) + 1;
     const activityTypeWithId = {...activityType, id};
-    localStorage
-      .setMap(
-        'activityTypes',
-        new Map([...state.activityTypes.entries(), [id, activityTypeWithId]]),
-      )
-      .then(() => {
-        dispatch({
-          activityType: activityTypeWithId,
-          type: 'edit_activity_type',
-        });
-      });
+    await localStorage.setMap(
+      'activityTypes',
+      new Map([...state.activityTypes.entries(), [id, activityTypeWithId]]),
+    );
+    dispatch({
+      activityType: activityTypeWithId,
+      type: 'edit_activity_type',
+    });
   }
 
-  function editActivityType(activityType: ActivityType) {
-    localStorage
-      .setMap(
-        'activityTypes',
-        new Map([
-          ...state.activityTypes.entries(),
-          [activityType.id, activityType],
-        ]),
-      )
-      .then(() => {
-        dispatch({
-          activityType,
-          type: 'edit_activity_type',
-        });
-      });
+  async function editActivityType(activityType: ActivityType) {
+    await localStorage.setMap(
+      'activityTypes',
+      new Map([
+        ...state.activityTypes.entries(),
+        [activityType.id, activityType],
+      ]),
+    );
+    dispatch({
+      activityType,
+      type: 'edit_activity_type',
+    });
   }
 
   return {
