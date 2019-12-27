@@ -10,7 +10,7 @@ const legacyStorage = new LegacyStorage();
 const storage = AsyncStorageFactory.create(legacyStorage);
 
 function setMap<K, V>(key: string, map: Map<K, V>): Promise<void> {
-  return storage.set(key, JSON.stringify([...map.entries]));
+  return storage.set(key, JSON.stringify([...map.entries()]));
 }
 
 function getMap<K, V>(key: string): Promise<?Map<K, V>> {
