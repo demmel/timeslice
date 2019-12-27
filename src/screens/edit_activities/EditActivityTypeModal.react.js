@@ -48,6 +48,7 @@ function EditActivityTypeModal({
       visible={isVisible}
       onRequestClose={onCancel}>
       <View style={[appStyles.fillParent, appStyles.centerContent]}>
+        <View style={styles.background} />
         <View style={appStyles.dialog}>
           <Text style={styles.title}>
             {isEdit ? 'Edit Activity' : 'Add New Activity'}
@@ -89,6 +90,12 @@ function EditActivityTypeModal({
 }
 
 const styles = StyleSheet.create({
+  background: {
+    ...appStyles.fillParent,
+    backgroundColor: 'black',
+    opacity: 0.75,
+    position: 'absolute',
+  },
   button: {
     flex: 1,
   },
