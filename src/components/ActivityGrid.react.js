@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import PrettyGrid from 'components/PrettyGrid.react';
 import appStyles from 'styles';
 import type {MaterialIconsGlyphs} from 'react-native-vector-icons/MaterialIcons';
+
 type Props = {children: React.ChildrenArray<React.Element<typeof Item>>};
 
 function ActivityGrid({children}: Props): React.Element<typeof View> {

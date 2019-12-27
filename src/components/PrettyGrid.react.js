@@ -13,21 +13,39 @@ type Props = {
   spacing: number,
 };
 
-function usePrettyGridMeasure() {
+function PrettyGrid({children, spacing}: Props): React.MixedElement {
   const [preferredSizes, setPreferredSizes] = useState(new Map());
   const [rootWidth, setRootWidth] = useState(0);
 
-  return {
-    MeasureComponent: ({children}) => (
+  if (rootWidth === 0) {
+    return (
       <View
         onLayout={({
           nativeEvent: {
             layout: {width},
           },
         }) => {
+          console.log(width);
           setRootWidth(width);
         }}
-        style={styles.root}>
+        style={styles.root}
+      />
+    );
+  }
+
+  const numChildren = React.Children.count(children);
+  if (preferredSizes.size > numChildren) {
+    setPreferredSizes(new Map());
+    return (
+      <View style={styles.root}>
+        {React.Children.map(children, (child, i) => (
+          <View>{child}</View>
+        ))}
+      </View>
+    );
+  } else if (preferredSizes.size < numChildren) {
+    return (
+      <View style={styles.root}>
         {React.Children.map(children, (child, i) => (
           <View
             onLayout={({
@@ -36,24 +54,14 @@ function usePrettyGridMeasure() {
               },
             }) => {
               if (!preferredSizes.has(i)) {
-                setPreferredSizes(old => old.set(i, {height, width}));
+                setPreferredSizes(old => new Map(old).set(i, {height, width}));
               }
             }}>
             {child}
           </View>
         ))}
       </View>
-    ),
-    preferredSizes,
-    rootWidth,
-  };
-}
-
-function PrettyGrid({children, spacing}: Props): React.MixedElement {
-  const {preferredSizes, rootWidth, MeasureComponent} = usePrettyGridMeasure();
-
-  if (preferredSizes.size !== React.Children.count(children)) {
-    return <MeasureComponent>{children}</MeasureComponent>;
+    );
   }
 
   const childSets = [];
@@ -83,7 +91,7 @@ function PrettyGrid({children, spacing}: Props): React.MixedElement {
   });
 
   return (
-    <View>
+    <View style={styles.root}>
       {childSets.map((set, setI) => {
         const setWidth = set.reduce(
           (acc, cur) => acc + preferredSizes.get(cur.i)?.width,
