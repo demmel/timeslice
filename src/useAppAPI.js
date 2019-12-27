@@ -4,8 +4,8 @@
  */
 
 import * as React from 'react';
+import localStorage from 'storage/localStorage';
 import reducer from 'reducer';
-import storage from 'storage';
 import type {Action, State} from 'reducer';
 import type {ActivityType} from 'types';
 
@@ -17,13 +17,10 @@ export default function useAppAPI(initialState: State) {
   function addActivityType(activityType: $Diff<ActivityType, {id: number}>) {
     const id = Math.max(0, ...state.activityTypes.keys()) + 1;
     const activityTypeWithId = {...activityType, id};
-    storage
-      .set(
+    localStorage
+      .setMap(
         'activityTypes',
-        JSON.stringify([
-          ...state.activityTypes.entries(),
-          [id, activityTypeWithId],
-        ]),
+        new Map([...state.activityTypes.entries(), [id, activityTypeWithId]]),
       )
       .then(() => {
         dispatch({
@@ -34,11 +31,14 @@ export default function useAppAPI(initialState: State) {
   }
 
   function editActivityType(activityType: ActivityType) {
-    storage
-      .set('activityTypes', JSON.stringify([
-        ...state.activityTypes.entries(),
-        [activityType.id, activityType],
-      ]))
+    localStorage
+      .setMap(
+        'activityTypes',
+        new Map([
+          ...state.activityTypes.entries(),
+          [activityType.id, activityType],
+        ]),
+      )
       .then(() => {
         dispatch({
           activityType,
