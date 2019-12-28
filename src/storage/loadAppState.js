@@ -17,6 +17,7 @@ export default async function loadAppState(): Promise<State> {
     'activityContexts',
     'activities',
   ]);
+  const currentActivity = await localStorage.get('currentActivity');
   const defaultState = {
     activities: new Map<number, Activity>(),
     activityContexts: new Map<number, ActivityContext>(),
@@ -30,5 +31,6 @@ export default async function loadAppState(): Promise<State> {
         : defaultState.activityContexts,
     activityTypes:
       activityTypes != null ? activityTypes : defaultState.activityTypes,
+    currentActivity,
   };
 }

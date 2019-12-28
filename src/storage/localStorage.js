@@ -9,6 +9,16 @@ import LegacyStorage from '@react-native-community/async-storage-backend-legacy'
 const legacyStorage = new LegacyStorage();
 const storage = AsyncStorageFactory.create(legacyStorage);
 
+function set(key: string, value: any): Promise<void> {
+  return storage.set(key, JSON.stringify(value));
+}
+
+function get(key: string): Promise<any> {
+  return storage
+    .get(key)
+    .then(maybe => (maybe != null ? JSON.parse(maybe) : null));
+}
+
 function setMap<K, V>(key: string, map: Map<K, V>): Promise<void> {
   return storage.set(key, JSON.stringify([...map.entries()]));
 }
@@ -32,7 +42,9 @@ function getMaps<K>(keys: Array<string>): Promise<{[string]: ?Map<K, any>}> {
 }
 
 export default {
+  get,
   getMap,
   getMaps,
+  set,
   setMap,
 };

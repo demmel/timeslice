@@ -58,11 +58,28 @@ export default function useAppAPI(initialState: State) {
     });
   }
 
+  async function setCurrentActivity(typeID: ?number) {
+    await localStorage.set(
+      'currentActivity',
+      typeID != null
+        ? {
+            start: new Date(),
+            typeID,
+          }
+        : null,
+    );
+    dispatch({
+      type: 'set_current_activity',
+      typeID,
+    });
+  }
+
   return {
     api: {
       addActivityType,
-      removeActivityType,
       editActivityType,
+      removeActivityType,
+      setCurrentActivity,
     },
     state,
   };

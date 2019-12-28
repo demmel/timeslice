@@ -10,13 +10,11 @@ import ActivityGrid from 'components/ActivityGrid.react';
 import ScreenWithMenuToggle from 'ScreenWithMenuToggle.react';
 import appStyles from 'styles';
 
-const {useState} = React;
-
 function Home(): React.Element<typeof ScreenWithMenuToggle> {
   const {
-    state: {activityTypes},
+    state: {currentActivity, activityTypes},
+    api: {setCurrentActivity},
   } = useAppContext();
-  const [currentActivityID, setCurrentActivityID] = useState(null);
 
   return (
     <ScreenWithMenuToggle
@@ -25,20 +23,20 @@ function Home(): React.Element<typeof ScreenWithMenuToggle> {
         <ActivityGrid>
           <ActivityGrid.Item
             onPress={() => {
-              setCurrentActivityID(null);
+              setCurrentActivity(null);
             }}
             icon="block"
             text="Untracked"
-            selected={currentActivityID === null}
+            selected={currentActivity?.typeID == null}
           />
           {[...activityTypes.values()].map(activityType => (
             <ActivityGrid.Item
               onPress={() => {
-                setCurrentActivityID(activityType.id);
+                setCurrentActivity(activityType.id);
               }}
               key={activityType.id}
               text={activityType.name}
-              selected={currentActivityID === activityType.id}
+              selected={currentActivity?.typeID === activityType.id}
             />
           ))}
         </ActivityGrid>
