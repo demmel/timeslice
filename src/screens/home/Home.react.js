@@ -27,16 +27,16 @@ function Home(): React.Element<typeof ScreenWithMenuToggle> {
             }}
             icon="block"
             text="Untracked"
-            selected={currentActivity?.typeID == null}
+            selected={currentActivity.value?.typeID == null}
           />
-          {[...activityTypes.values()].map(activityType => (
+          {[...activityTypes.value.values()].map(activityType => (
             <ActivityGrid.Item
               onPress={() => {
                 setCurrentActivity(activityType.id);
               }}
               key={activityType.id}
               text={activityType.name}
-              selected={currentActivity?.typeID === activityType.id}
+              selected={currentActivity.value?.typeID === activityType.id}
             />
           ))}
         </ActivityGrid>

@@ -10,7 +10,7 @@ import Welcome from './Welcome.react';
 
 function HomeScreen(): React.Element<typeof React.Fragment> {
   const {state} = useAppContext();
-  return state.activityTypes.size > 0 ? <Home /> : <Welcome />;
+  return state.activityTypes.value.size > 0 ? <Home /> : <Welcome />;
 }
 
 export default HomeScreen;

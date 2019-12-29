@@ -50,7 +50,7 @@ function EditActivitiesScreen(): React.Element<typeof React.Fragment> {
         }>
         <ScrollView>
           <ActivityGrid>
-            {[...activityTypes.values()].map(activityType => (
+            {[...activityTypes.value.values()].map(activityType => (
               <ActivityGrid.Item
                 onPress={() => {
                   setActivityBeingEditted(activityType);
