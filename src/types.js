@@ -4,10 +4,12 @@
  */
 
 import type {AsyncState} from 'useAsyncReducer';
+import type {MaterialIconsGlyphs} from 'react-native-vector-icons/MaterialIcons';
 
 export type ActivityType = {
   id: number,
   name: string,
+  icon?: MaterialIconsGlyphs,
 };
 
 export type ActivityContext = {
